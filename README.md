@@ -12,15 +12,15 @@
     }],
     initialValue: curData.logoUrl || '',
   })(
-    <UploadCom imgType={['png']} size={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
+    <UploadCom imgType={['png']} imgSize={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
   )}
 </FormItem>
 ```
 
 ## 参数
 
-> **imgType** 图片类型：Array
+> **imgType** 图片类型：Array；
 
-> **imgSize** 图片大小：Number
+> **imgSize** 图片大小：Number 单位为KB；
 
-> **action**  图片上传URL：String
+> **action**  图片上传URL：String；
