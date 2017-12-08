@@ -91,7 +91,7 @@ class WoxUpload extends Component {
         beforeUpload={this.beforeUpload}
         fileList={fileList}
         onChange={this.handlePicChange}
-        className={fileList.length ? cx('reset-upload') : cx('upload')}
+        className={fileList.length ? cx('wox-reset-upload') : cx('wox-upload')}
       >
         {
           fileList.length ? (

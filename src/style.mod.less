@@ -1,10 +1,39 @@
-.wrapper {
-  background-color: #f2f2f2;
+.wox-upload, .wox-reset-upload {
 
   :global {
-    .ant-btn {
-      font-size: 14px;
-      color: #ccc;
+    .ant-upload-list-item, .ant-upload {
+      width: 130px;
+      height: 130px;
+    
+      &.ant-upload-list-item {
+        border-style: dashed;
+      }
+    }
+  }
+
+  &.reset-upload {
+    :global {
+      .ant-upload {
+        border: 0;
+
+        &:hover {
+          border: 0;
+        }
+
+        > .ant-upload {
+          padding-top: 116px;
+          border: 0;
+          background: #fff;
+          line-height: 14px;
+          font-size: 14px;
+          color: #108ee9;
+
+          .reset-btn {
+            padding-left: 26px;
+            background: url(./images/icon.png) no-repeat 0 center;
+          }
+        }
+      } 
     }
   }
 }
