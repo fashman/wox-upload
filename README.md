@@ -1,19 +1,26 @@
-# react-component
+# wox-upload
 
-## API
+## 使用
 
-| 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ---- |
-| onFocus | 获取焦点 | Function | |
+> 配合 ant-form getFieldDecorator 使用，initialValue值为 String类型，只支持单图；
 
-## Build
-
+```javascript
+<FormItem>
+  {getFieldDecorator('logoUrl', {
+    rules: [{
+      required: true, message: 'Please upload your logo'
+    }],
+    initialValue: curData.logoUrl || '',
+  })(
+    <UploadCom imgType={['png']} size={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
+  )}
+</FormItem>
 ```
-$ npm run build
-```
 
-## Publish
+## 参数
 
-```
-$ npm publish
-```
+> **imgType** 图片类型：Array
+
+> **imgSize** 图片大小：Number
+
+> **action**  图片上传URL：String
