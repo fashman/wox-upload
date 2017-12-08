@@ -1,6 +1,6 @@
 {
   "name": "wox-upload",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "upload with validate",
   "main": "lib/index.js",
   "scripts": {
@@ -16,6 +16,10 @@
     "react",
     "component"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firebugger/wox-upload.git"
+  },
   "devDependencies": {
     "antd": "^2.10.4",
     "babel-cli": "^6.24.1",
