@@ -1,0 +1,50 @@
+{
+  "name": "wox-upload",
+  "version": "0.0.1",
+  "description": "upload with validate",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint --fix ./src/**/*.jsx",
+    "clean": "rimraf ./lib",
+    "prebuild": "npm run clean && npm run lint",
+    "build:script": "babel ./src/index.jsx --out-file ./lib/index.js",
+    "build:style": "mkdirp ./lib && cp ./src/*.less ./lib",
+    "build": "npm run test && npm run build:style && npm run build:script",
+    "test": "mocha ./test/**/*.test.js"
+  },
+  "keywords": [
+    "react",
+    "component"
+  ],
+  "devDependencies": {
+    "antd": "^2.10.4",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-import": "^1.6.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "classnames": "^2.2.5",
+    "eslint": "^3.19.0",
+    "eslint-config-wox": "*",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "less": "^2.7.2",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.4.2",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "rimraf": "^2.6.1"
+  },
+  "peerDependencies": {
+    "antd": "^2.10.4",
+    "classnames": "^2.2.5",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "author": "",
+  "license": "MIT"
+}
