@@ -10,14 +10,11 @@ const cx = classNames.bind(styles);
 class WoxUpload extends Component {
   constructor(props) {
     super(props);
-    const value = this.props.value;
+    const value = this.props.value || [];
     this.state = {
-      fileList: value ? [{
-        uid: -1,
-        name: 'logo',
-        status: 'done',
-        url: value
-      }] : [],
+      fileList: value instanceof Array ? value.map((v,i)=>({
+        uid: -i, name: 'logo', status: 'done', url: v
+      })) : [{ uid: -1, name: 'logo', status: 'done', url: value }],
       notSimple: this.props.notSimple ? true : false
     };
   }
@@ -65,23 +62,20 @@ class WoxUpload extends Component {
 
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
-      const value = nextProps.value;
+      const value = nextProps.value || [];
       this.setState({
-        fileList: value ? [{
-          uid: -1,
-          name: 'logo',
-          status: 'done',
-          url: value
-        }] : []
+        fileList: value instanceof Array ? value.map((v,i)=>({
+          uid: -i, name: 'logo', status: 'done', url: v
+        })) : [{ uid: -1, name: 'logo', status: 'done', url: value }]
       });
     }
   }
 
-  triggerChange = (changedValue) => {
+  triggerChange = (list) => {
     const onChange = this.props.onChange;
     if (onChange) {
       const { notSimple } = this.state;
-      onChange(changedValue.length ? notSimple ? changedValue : changedValue[changedValue.length - 1].url : '');
+      onChange(notSimple ? list.map(val=> val.url) : (list.length ? list[list.length - 1].url : ''));
     }
   }
 
