@@ -2,7 +2,7 @@
 
 ## 使用
 
-> 配合 ant-form getFieldDecorator 使用，initialValue值为 String类型，只支持单图；
+> 配合 ant-form getFieldDecorator 使用，initialValue值为 String(单图) 或 Array(多图)类型；
 
 ```javascript
 <FormItem>
@@ -12,15 +12,17 @@
     }],
     initialValue: curData.logoUrl || '',
   })(
-    <UploadCom imgType={['png']} imgSize={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
+    <UploadCom notSimple={false} imgType={['png']} imgSize={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
   )}
 </FormItem>
 ```
 
 ## 参数
 
-> **imgType** 图片类型：Array；
+> **imgType** 图片类型：Array,默认包含 jpg png jpeg gif；
 
-> **imgSize** 图片大小：Number 单位为KB；
+> **imgSize** 图片大小：Number 单位为KB,默认 1024KB；
 
 > **action**  图片上传URL：String；
+
+> **notSimple**  是否单图：Boolean,默认 false；

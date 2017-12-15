@@ -17,7 +17,8 @@ class WoxUpload extends Component {
         name: 'logo',
         status: 'done',
         url: value
-      }] : []
+      }] : [],
+      notSimple: this.props.notSimple ? true : false
     };
   }
   handlePicChange = (e) => {
@@ -39,7 +40,8 @@ class WoxUpload extends Component {
       } else if (e.file.status === 'removed') {
         this.triggerChange(list);
       }
-      this.setState({ fileList: list.length ? list.splice(-1) : [] });
+      const { notSimple } = this.state;
+      this.setState({ fileList: list.length ? (notSimple ? list : list.splice(-1)) : [] });
     }
   }
 
@@ -78,12 +80,13 @@ class WoxUpload extends Component {
   triggerChange = (changedValue) => {
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange(changedValue.length ? changedValue[changedValue.length - 1].url : '');
+      const { notSimple } = this.state;
+      onChange(changedValue.length ? notSimple ? changedValue : changedValue[changedValue.length - 1].url : '');
     }
   }
 
   render() {
-    const { fileList } = this.state;
+    const { fileList, notSimple } = this.state;
     return(
       <Upload
         action={this.props.action || `${Base.img}/wximg/dpp/upload`} 
@@ -91,10 +94,10 @@ class WoxUpload extends Component {
         beforeUpload={this.beforeUpload}
         fileList={fileList}
         onChange={this.handlePicChange}
-        className={fileList.length ? cx('wox-reset-upload') : cx('wox-upload')}
+        className={!notSimple && fileList.length ? cx('wox-reset-upload') : cx('wox-upload')}
       >
         {
-          fileList.length ? (
+          !notSimple && fileList.length ? (
             <span className={cx('reset-btn')}>重新上传</span>
           ) : (
             <div>
