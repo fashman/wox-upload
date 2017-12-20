@@ -15,7 +15,8 @@ class WoxUpload extends Component {
       fileList: value instanceof Array ? value.map((v,i)=>({
         uid: -i, name: 'logo', status: 'done', url: v
       })) : [{ uid: -1, name: 'logo', status: 'done', url: value }],
-      notSimple: this.props.notSimple ? true : false
+      notSimple: this.props.notSimple ? true : false,
+      Max: this.props.Max ? this.props.Max : 1
     };
   }
   handlePicChange = (e) => {
@@ -80,7 +81,7 @@ class WoxUpload extends Component {
   }
 
   render() {
-    const { fileList, notSimple } = this.state;
+    const { fileList, notSimple, Max } = this.state;
     return(
       <Upload
         action={this.props.action || `${Base.img}/wximg/dpp/upload`} 
@@ -94,10 +95,12 @@ class WoxUpload extends Component {
           !notSimple && fileList.length ? (
             <span className={cx('reset-btn')}>重新上传</span>
           ) : (
-            <div>
-              <Icon type="plus" />
-              <div className="ant-upload-text">Upload</div>
-            </div>
+            fileList.length < Max ? (
+              <div>
+                <Icon type="plus" />
+                <div className="ant-upload-text">Upload</div>
+              </div>
+            ) : null
           )
         }
       </Upload>

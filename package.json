@@ -1,6 +1,6 @@
 {
   "name": "wox-upload",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "upload with validate",
   "main": "lib/index.js",
   "scripts": {

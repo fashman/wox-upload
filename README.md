@@ -12,7 +12,7 @@
     }],
     initialValue: curData.logoUrl || '',
   })(
-    <UploadCom notSimple={false} imgType={['png']} imgSize={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
+    <UploadCom notSimple={false} Max={1} imgType={['png']} imgSize={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
   )}
 </FormItem>
 ```
@@ -26,3 +26,5 @@
 > **action**  图片上传URL：String；
 
 > **notSimple**  是否单图：Boolean,默认 false；
+
+> **Max**  图片上传最大数：Number,默认 1；
