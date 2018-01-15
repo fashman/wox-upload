@@ -12,7 +12,13 @@
     }],
     initialValue: curData.logoUrl || '',
   })(
-    <UploadCom notSimple={false} Max={1} imgType={['png']} imgSize={1024} action={`${Base.img}/wximg/dppLogo/upload`}/>
+    <UploadCom 
+      notSimple={false} 
+      Max={1} 
+      imgType={['png']} 
+      imgSize={1024} 
+      action={`${Base.img}/wximg/dppLogo/upload`}
+    />
   )}
 </FormItem>
 ```
