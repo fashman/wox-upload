@@ -52,12 +52,12 @@ class WoxUpload extends Component {
       message.error(`You can only upload ${(imgType || defaultType).join('/')} file!`, 3);
       return false;
     }
-    const isLt100KB = file.size / 1024 < (imgSize || 1024);
-    if (!isLt100KB) {
+    const isLt1MB = file.size / 1024 < (imgSize || 1024);
+    if (!isLt1MB) {
       message.error(`Image must smaller than ${imgSize || 1024}KB!`, 3);
       return false;
     }
-    return isJPG && isLt100KB;
+    return isJPG && isLt1MB;
   }
 
   componentWillReceiveProps(nextProps) {
