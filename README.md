@@ -15,7 +15,6 @@ import WoxUpload from 'wox-upload';
     initialValue: curData.logoUrl || '',
   })(
     <WoxUpload 
-      notSimple={false} 
       Max={1} 
       imgType={['png']} 
       imgSize={1024} 
@@ -34,6 +33,4 @@ import WoxUpload from 'wox-upload';
 
 > **action**  图片上传URL：String；
 
-> **notSimple**  是否多图：Boolean,默认 false；
-
-> **Max**  图片上传最大数：Number,默认 1；
+> **Max**  图片上传最大数：Number,默认 1；>1 为多图模式，默认为单图模式

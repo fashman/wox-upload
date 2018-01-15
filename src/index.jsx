@@ -15,7 +15,6 @@ class WoxUpload extends Component {
       fileList: value instanceof Array ? value.map((v,i)=>({
         uid: -i, name: 'logo', status: 'done', url: v
       })) : [{ uid: -1, name: 'logo', status: 'done', url: value }],
-      notSimple: this.props.notSimple ? true : false,
       Max: this.props.Max ? this.props.Max : 1
     };
   }
@@ -38,8 +37,8 @@ class WoxUpload extends Component {
       } else if (e.file.status === 'removed') {
         this.triggerChange(list);
       }
-      const { notSimple } = this.state;
-      this.setState({ fileList: list.length ? (notSimple ? list : list.splice(-1)) : [] });
+      const { Max } = this.state;
+      this.setState({ fileList: list.length ? (Max > 1 ? list : list.splice(-1)) : [] });
     }
   }
 
@@ -75,13 +74,13 @@ class WoxUpload extends Component {
   triggerChange = (list) => {
     const onChange = this.props.onChange;
     if (onChange) {
-      const { notSimple } = this.state;
-      onChange(notSimple ? list.map(val=> val.url) : (list.length ? list[list.length - 1].url : ''));
+      const { Max } = this.state;
+      onChange(Max > 1 ? list.map(val=> val.url) : (list.length ? list[list.length - 1].url : ''));
     }
   }
 
   render() {
-    const { fileList, notSimple, Max } = this.state;
+    const { fileList, Max } = this.state;
     return(
       <Upload
         action={this.props.action || `${Base.img}/wximg/dpp/upload`} 
@@ -89,10 +88,10 @@ class WoxUpload extends Component {
         beforeUpload={this.beforeUpload}
         fileList={fileList}
         onChange={this.handlePicChange}
-        className={!notSimple && fileList.length ? cx('wox-reset-upload') : cx('wox-upload')}
+        className={Max === 1 && fileList.length ? cx('wox-reset-upload') : cx('wox-upload')}
       >
         {
-          !notSimple && fileList.length ? (
+          Max === 1 && fileList.length ? (
             <span className={cx('reset-btn')}>重新上传</span>
           ) : (
             fileList.length < Max ? (
