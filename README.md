@@ -25,6 +25,6 @@
 
 > **action**  图片上传URL：String；
 
-> **notSimple**  是否单图：Boolean,默认 false；
+> **notSimple**  是否多图：Boolean,默认 false；
 
 > **Max**  图片上传最大数：Number,默认 1；
