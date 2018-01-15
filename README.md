@@ -21,6 +21,7 @@ import WoxUpload from 'wox-upload';
       imgSize={1024} 
       action={`${Base.img}/wximg/dppLogo/upload`}
     />
+    // 单图一般 <WoxUpload action={`${Base.img}/wximg/dppLogo/upload`}/> 即可
   )}
 </FormItem>
 ```
