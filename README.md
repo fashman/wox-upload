@@ -5,6 +5,8 @@
 > 配合 ant-form getFieldDecorator 使用，initialValue值为 String(单图) 或 Array(多图)类型；
 
 ```javascript
+import WoxUpload from 'wox-upload';
+
 <FormItem>
   {getFieldDecorator('logoUrl', {
     rules: [{
@@ -12,7 +14,7 @@
     }],
     initialValue: curData.logoUrl || '',
   })(
-    <UploadCom 
+    <WoxUpload 
       notSimple={false} 
       Max={1} 
       imgType={['png']} 
