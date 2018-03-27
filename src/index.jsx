@@ -63,6 +63,10 @@ class WoxUpload extends Component {
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
       const value = nextProps.value || [];
+      const fileList = this.state.fileList.map(val=>val.url);
+      if( JSON.stringify(value) === JSON.stringify(fileList)){
+        return;
+      }
       this.setState({
         fileList: value instanceof Array ? value.map((v,i)=>({
           uid: -i, name: 'logo', status: 'done', url: v
