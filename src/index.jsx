@@ -10,14 +10,12 @@ const cx = classNames.bind(styles);
 class WoxUpload extends Component {
   constructor(props) {
     super(props);
-    const value = this.props.value;
+    const value = this.props.value || [];
     this.state = {
-      fileList: value ? [{
-        uid: -1,
-        name: 'logo',
-        status: 'done',
-        url: value
-      }] : []
+      fileList: value instanceof Array ? value.map((v,i)=>({
+        uid: -i, name: 'logo', status: 'done', url: v
+      })) : [{ uid: -1, name: 'logo', status: 'done', url: value }],
+      Max: this.props.Max ? this.props.Max : 1
     };
   }
   handlePicChange = (e) => {
@@ -39,7 +37,8 @@ class WoxUpload extends Component {
       } else if (e.file.status === 'removed') {
         this.triggerChange(list);
       }
-      this.setState({ fileList: list.length ? list.splice(-1) : [] });
+      const { Max } = this.state;
+      this.setState({ fileList: list.length ? (Max > 1 ? list : list.splice(-1)) : [] });
     }
   }
 
@@ -53,37 +52,39 @@ class WoxUpload extends Component {
       message.error(`You can only upload ${(imgType || defaultType).join('/')} file!`, 3);
       return false;
     }
-    const isLt100KB = file.size / 1024 < (imgSize || 1024);
-    if (!isLt100KB) {
+    const isLt1MB = file.size / 1024 < (imgSize || 1024);
+    if (!isLt1MB) {
       message.error(`Image must smaller than ${imgSize || 1024}KB!`, 3);
       return false;
     }
-    return isJPG && isLt100KB;
+    return isJPG && isLt1MB;
   }
 
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
-      const value = nextProps.value;
+      const value = nextProps.value || [];
+      const fileList = this.state.fileList.map(val=>val.url);
+      if( JSON.stringify(value) === JSON.stringify(fileList)){
+        return;
+      }
       this.setState({
-        fileList: value ? [{
-          uid: -1,
-          name: 'logo',
-          status: 'done',
-          url: value
-        }] : []
+        fileList: value instanceof Array ? value.map((v,i)=>({
+          uid: -i, name: 'logo', status: 'done', url: v
+        })) : [{ uid: -1, name: 'logo', status: 'done', url: value }]
       });
     }
   }
 
-  triggerChange = (changedValue) => {
+  triggerChange = (list) => {
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange(changedValue.length ? changedValue[changedValue.length - 1].url : '');
+      const { Max } = this.state;
+      onChange(Max > 1 ? list.map(val=> val.url) : (list.length ? list[list.length - 1].url : ''));
     }
   }
 
   render() {
-    const { fileList } = this.state;
+    const { fileList, Max } = this.state;
     return(
       <Upload
         action={this.props.action || `${Base.img}/wximg/dpp/upload`} 
@@ -91,16 +92,18 @@ class WoxUpload extends Component {
         beforeUpload={this.beforeUpload}
         fileList={fileList}
         onChange={this.handlePicChange}
-        className={fileList.length ? cx('wox-reset-upload') : cx('wox-upload')}
+        className={Max === 1 && fileList.length ? cx('wox-reset-upload') : cx('wox-upload')}
       >
         {
-          fileList.length ? (
+          Max === 1 && fileList.length ? (
             <span className={cx('reset-btn')}>重新上传</span>
           ) : (
-            <div>
-              <Icon type="plus" />
-              <div className="ant-upload-text">Upload</div>
-            </div>
+            fileList.length < Max ? (
+              <div>
+                <Icon type="plus" />
+                <div className="ant-upload-text">Upload</div>
+              </div>
+            ) : null
           )
         }
       </Upload>
